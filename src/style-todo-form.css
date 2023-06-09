@@ -1,0 +1,96 @@
+@keyframes createBox {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.todo-div {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  backdrop-filter: blur(10px);
+  animation: createBox 0.3s;
+}
+
+.todo-div form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.form {
+  background-color: rgb(179, 179, 179);
+  display: flex;
+  gap: 50px;
+  font-family: sans-serif;
+  padding: 30px;
+  border-radius: 20px;
+}
+input,
+textarea,
+select {
+  background-color: rgb(229, 229, 229);
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+input:invalid,
+select:invalid {
+  outline: 1px solid red;
+}
+
+input:valid,
+select:valid {
+  outline: 1px solid green;
+}
+
+textarea {
+  height: 100px;
+}
+
+label {
+  margin: 0 auto;
+}
+
+.text-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.select-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.due-date-div,
+.select-priority-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-new-todo {
+  background-color: transparent;
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid var(--main-color);
+  transition: 0.3s;
+}
+
+.add-new-todo:hover {
+  color: var(--main-color);
+  cursor: pointer;
+}
