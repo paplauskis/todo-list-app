@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&family=Nunito:wght@300&family=Roboto+Mono:wght@100&family=Rubik+Pixels&family=Tsukimi+Rounded:wght@300;500&display=swap');
+
+:root {
+  --main-color: rgb(168, 0, 206);
+}
+
+html {
+  background-color: rgb(229, 229, 229);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.title {
+  font-family: 'Rubik Pixels', cursive, sans-serif;
+}
+
+.header {
+  padding: 20px;
+  border-bottom: 2px solid var(--main-color);
+  display: flex;
+  justify-content: space-between;
+  height: 9vh;
+}
+
+.contents {
+  display: flex;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--main-color);
+  height: 91vh;
+  min-width: 275px;
+}
+
+.todo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-size: 1.1rem;
+  padding: 20px;
+  border-bottom: 2px solid var(--main-color);
+  align-items: flex-start;
+}
+
+.sidebar-link {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  transition: 0.3s;
+  padding: 5px 10px;
+}
+
+.sidebar-link:hover {
+  color: var(--main-color);
+  cursor: pointer;
+}
+
+.sidebar-link:active {
+  color: rgb(180, 255, 255);
+}
+
+.priority-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-size: 1.2rem;
+  padding: 20px;
+  border-bottom: 2px solid var(--main-color);
+  align-items: flex-start;
+}
+
+.icon {
+  width: 25px;
+  margin-bottom: -3px;
+}
+
+.main-display {
+  display: grid;
+  grid-template-columns: repeat(5, minmax( 100px, 1fr));
+  grid-template-rows: repeat(3, minmax( 100px, 1fr));
+  gap: 40px;
+  padding: 40px;
+  max-width: 85.5vw;
+  max-height: 90.8vh;
+}
+
+.add-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  font-size: 1.2rem;
+  padding: 20px;
+  align-items: flex-start;
+  padding-bottom: 24px;
+}
