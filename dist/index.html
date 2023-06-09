@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/" type="image/icon type">
+  <link rel="stylesheet" href="../src/style.css">
+  <link rel="stylesheet" href="../src/style-note-form.css">
+  <link rel="stylesheet" href="../src/style.todo-form.css">
+  <link rel="stylesheet" href="../src/style-display-notes.css">
+  <title>Todo's</title>
+</head>
+  <body>
+    <div class="header">
+      <h1 class="title">Todo &nbsp App</h1>
+    </div>
+    <div class="contents">
+      <div class="sidebar">
+        <div class="todo-section">
+          <button type="button" class="todo sidebar-link all-todos-section-button"><img src="../assets/grid.png" alt="icon" class="icon"> &nbsp; All</button>
+          <button type="button" class="todo sidebar-link today-todos-section-button"><img src="../assets/exclamation.png" alt="icon" class="icon"> &nbsp; Today</button>
+          <!-- <button class="todo sidebar-link"><img src="../assets/home.png" alt="icon" class="icon"> &nbsp; Home</button>
+          <button class="todo sidebar-link"><img src="../assets/work.png" alt="icon" class="icon"> &nbsp; Work</button>
+          <button class="todo sidebar-link"><img src="../assets/random.png" alt="icon" class="icon"> &nbsp; Miscellaneous</button> -->
+          <button type="button" class="todo sidebar-link completed-todos-section-button"><img src="../assets/success.png" alt="icon" class="icon"> &nbsp; Completed</button>
+          <button type="button" class="todo sidebar-link notes-section-button"> <img src="../assets/edit.png" alt="icon" class="icon"> &nbsp; Notes </button>
+        </div>
+        <div class="priority-section">
+          <button type="button" class="priority sidebar-link high-priority-section-button">🔴 &nbsp; High priority</button>
+          <button type="button" class="priority sidebar-link medium-priority-section-button">🟡 &nbsp; Medium priority</button>
+          <button type="button" class="priority sidebar-link low-priority-section-button">🟢 &nbsp; Low priority</button>
+        </div>
+        <div class="add-section">
+          <button type="button" class="add-new-note-todo sidebar-link new-todo"><img src="../assets/add.png" alt="icon" class="icon"> &nbsp; New todo</button>
+          <button type="button" class="add-new-note-todo sidebar-link new-note"><img src="../assets/add.png" alt="icon" class="icon"> &nbsp; New note</button>
+        </div>
+      </div>
+      <div class="main-display">
+      </div>
+    </div>
+    <div class="note-div">
+      <form action="/" method="post" id="note-form">
+        <textarea id="note" placeholder="Note... Throw socks into washing machine" required cols="50" rows="10"></textarea>
+        <button type="submit" class="add-new-note add-note-button">Add Note</button>
+        <button type="button" class="cancel-note-form add-note-button">Close</button>
+      </form>
+    </div>
+    <div class="todo-div">
+      <form action="/" method="post">
+        <div class="form">
+          <div class="text-inputs">
+            <input type="text" id="title" placeholder="Title... take out the trash" autocomplete="off" required>
+            <textarea id="description" placeholder="Description... put plastics, paper and glass in their respective bins" autocomplete="off" cols="50" rows="10"></textarea>
+          </div>
+          <div class="select-inputs">
+            <div class="due-date-div">
+              <label for="due-date">Due date</label>          
+              <input type="date" id="due-date" required>
+            </div>
+            <div class="select-priority-div">
+              <label for="select-priority">Priority</label>
+              <select id="select-priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="add-new-todo">Add Todo</button>
+        <button type="button" class="cancel-todo-form add-new-todo">Close</button>
+      </form>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
