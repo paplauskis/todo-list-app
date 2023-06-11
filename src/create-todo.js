@@ -44,15 +44,13 @@ function createTodoDiv(todo) {
   todoArrayDiv.classList.add('todo-array-div');
   const priorityDiv = createPriorityDiv(todo.priority);
   const todoTitleDiv = createTodoTitleDiv(todo.title);
-  const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate, todo);
-  const descriptionDiv = createDescriptionDiv(todo.description);
-  const completeTodoButton = createCompleteTodoButton();
+  const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate, todo, todo.description, todoArrayDiv, priorityDiv);
+  const completeTodoButton = createCompleteTodoButton(todo, todoArrayDiv);
   const removeTodoButton = createRemoveTodoButton(todo, todoArrayDiv);
 
   todoArrayDiv.appendChild(priorityDiv);
   todoArrayDiv.appendChild(todoTitleDiv);
   todoArrayDiv.appendChild(dateAndInfoDiv);
-  todoArrayDiv.appendChild(descriptionDiv);
   dateAndInfoDiv.appendChild(completeTodoButton);
   dateAndInfoDiv.appendChild(removeTodoButton);
   
@@ -73,40 +71,51 @@ function createTodoTitleDiv(title) {
   return todoTitleDiv;
 }
 
-function createDescriptionDiv(description) {
+function createDateAndInfoDiv(dueDate, todo, description, todoArrayDiv, priorityDiv) {
+  const dateAndInfoDiv = document.createElement('div');
+  dateAndInfoDiv.classList.add('date-info-div');
+
   const descriptionDiv = document.createElement('div');
   descriptionDiv.classList.add('description-div');
   descriptionDiv.textContent = description;
   descriptionDiv.style.display = 'none';
-  return descriptionDiv;
-}
-
-function createDateAndInfoDiv(dueDate, todo) {
-  const dateAndInfoDiv = document.createElement('div');
-  dateAndInfoDiv.classList.add('date-info-div');
   
   const dateDiv = document.createElement('div');
   dateDiv.classList.add('date-div');
-  dateDiv.textContent = checkTodaysDate(dueDate, todo);
+  dateDiv.textContent = checkCurrentDate(dueDate, todo);
 
   const infoButton = document.createElement('button');
   infoButton.classList.add('info-button');
   infoButton.textContent = '•••';
   infoButton.addEventListener('click', () => {
-    //need to access description
+    if (descriptionDiv.style.display === 'none') {
+      descriptionDiv.style.display = 'block';
+      todoArrayDiv.style.height = '130px';
+      priorityDiv.style.height = '120px';
+    } else {
+      descriptionDiv.style.display = 'none';
+      todoArrayDiv.style.height = '40px';
+      priorityDiv.style.height = '40px';
+    }
   })
   
   dateAndInfoDiv.appendChild(dateDiv);
   dateAndInfoDiv.appendChild(infoButton);
+  todoArrayDiv.appendChild(descriptionDiv);
   
   return dateAndInfoDiv;
 }
 
-function createCompleteTodoButton() {
+function createCompleteTodoButton(todo, todoArrayDiv) {
   const completeTodoButton = document.createElement('button');
   completeTodoButton.classList.add('complete-todo-button');
   completeTodoButton.textContent = '✓';
-  // completeTodoButton.addEventListener('click', ...)
+  completeTodoButton.addEventListener('click', () => {
+    todoArrayDiv.remove();
+    completeTodoButton.style.backgroundColor = 'green';
+    removeTodoFromArray(todo);
+    completedTodosArray.push(todo);
+  })
   return completeTodoButton;
 }
 
@@ -142,18 +151,23 @@ function sortPrioritiesToArrays(priority, newTodo) {
   else return highPriorityTodosArray.push(newTodo);
 }
 
-function checkTodaysDate(dueDate, todo) {
+function getCurrentDate() {
   let thisMonth = `${new Date().getMonth() + 1}`;
   let thisDay = `${new Date().getDate()}`;
   if(thisDay.length == 1) thisDay = `0${thisDay}`;
   if(thisMonth.length == 1) thisMonth = `0${thisMonth}`;
   const todaysDate = `${thisMonth}-${thisDay}`;
+  return [thisDay, thisMonth, todaysDate];
+}
+
+function checkCurrentDate(dueDate, todo) {
   const modifiedDueDate = dueDate.replace('T', ' ').slice(5);
-  if (modifiedDueDate.slice(0, 5) == todaysDate) {
+  if (modifiedDueDate.slice(0, 5) == getCurrentDate()[2]) {
     todayTodosArray.push(todo);
-    let today = `Today ${modifiedDueDate.slice(6)}`
+    let today = `Today ${modifiedDueDate.slice(6)}`;
     return today;
-  } else {
-    return modifiedDueDate;
-  }
+  } else if (modifiedDueDate.slice(0, 5) == `${getCurrentDate()[1]}-${parseInt(getCurrentDate()[0]) + 1}`) {
+    let tommorow = `Tommorow ${modifiedDueDate.slice(6)}`;
+    return tommorow;
+  } else return modifiedDueDate;
 }
