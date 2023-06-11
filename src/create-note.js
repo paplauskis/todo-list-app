@@ -36,9 +36,7 @@ function displayNote(note) {
 
 function removeNoteFromArray(note) {
   const index = notesArray.indexOf(note);
-  if (index !== -1) {
-    notesArray.splice(index, 1);
-  }
+  if (index !== -1) notesArray.splice(index, 1);
 }
 
 
