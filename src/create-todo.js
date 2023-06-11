@@ -44,7 +44,7 @@ function createTodoDiv(todo) {
   todoArrayDiv.classList.add('todo-array-div');
   const priorityDiv = createPriorityDiv(todo.priority);
   const todoTitleDiv = createTodoTitleDiv(todo.title);
-  const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate);
+  const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate, todo);
   const descriptionDiv = createDescriptionDiv(todo.description);
   const completeTodoButton = createCompleteTodoButton();
   const removeTodoButton = createRemoveTodoButton(todo, todoArrayDiv);
@@ -73,32 +73,33 @@ function createTodoTitleDiv(title) {
   return todoTitleDiv;
 }
 
-function createDateAndInfoDiv(dueDate) {
-  const dateAndInfoDiv = document.createElement('div');
-  dateAndInfoDiv.classList.add('date-info-div');
-  
-  const dateDiv = document.createElement('div');
-  dateDiv.classList.add('date-div');
-  dateDiv.textContent = checkTodaysDate(dueDate);
-
-  
-  const infoButton = document.createElement('button');
-  infoButton.classList.add('info-button');
-  infoButton.textContent = '•••';
-  // infoButton.addEventListener('click', ...)
-  
-  dateAndInfoDiv.appendChild(dateDiv);
-  dateAndInfoDiv.appendChild(infoButton);
-  
-  return dateAndInfoDiv;
-}
-
 function createDescriptionDiv(description) {
   const descriptionDiv = document.createElement('div');
   descriptionDiv.classList.add('description-div');
   descriptionDiv.textContent = description;
   descriptionDiv.style.display = 'none';
   return descriptionDiv;
+}
+
+function createDateAndInfoDiv(dueDate, todo) {
+  const dateAndInfoDiv = document.createElement('div');
+  dateAndInfoDiv.classList.add('date-info-div');
+  
+  const dateDiv = document.createElement('div');
+  dateDiv.classList.add('date-div');
+  dateDiv.textContent = checkTodaysDate(dueDate, todo);
+
+  const infoButton = document.createElement('button');
+  infoButton.classList.add('info-button');
+  infoButton.textContent = '•••';
+  infoButton.addEventListener('click', () => {
+    //need to access description
+  })
+  
+  dateAndInfoDiv.appendChild(dateDiv);
+  dateAndInfoDiv.appendChild(infoButton);
+  
+  return dateAndInfoDiv;
 }
 
 function createCompleteTodoButton() {
@@ -141,7 +142,7 @@ function sortPrioritiesToArrays(priority, newTodo) {
   else return highPriorityTodosArray.push(newTodo);
 }
 
-function checkTodaysDate(dueDate) {
+function checkTodaysDate(dueDate, todo) {
   let thisMonth = `${new Date().getMonth() + 1}`;
   let thisDay = `${new Date().getDate()}`;
   if(thisDay.length == 1) thisDay = `0${thisDay}`;
@@ -149,6 +150,7 @@ function checkTodaysDate(dueDate) {
   const todaysDate = `${thisMonth}-${thisDay}`;
   const modifiedDueDate = dueDate.replace('T', ' ').slice(5);
   if (modifiedDueDate.slice(0, 5) == todaysDate) {
+    todayTodosArray.push(todo);
     let today = `Today ${modifiedDueDate.slice(6)}`
     return today;
   } else {
