@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Kanit&family=Nunito:wght@300&family=Roboto+Mono:wght@100&family=Rubik+Pixels&family=Slackside+One&family=Tsukimi+Rounded:wght@300;500&display=swap');
 .notes-section {
   display: grid;
   grid-template-columns: repeat(4, minmax( 100px, 1fr));
@@ -10,6 +11,7 @@
 }
 
 .note-array-div {
+  font-family: Verdana, Geneva, Tahoma, sans-serif, monospace;
   background-color: rgb(176, 176, 176);
   padding: 30px 30px 20px 20px;
   position: relative;
@@ -32,6 +34,6 @@
 }
 
 .remove-note-button:hover {
-  background-color: rgb(168, 0, 206);
+  background-color: rgb(220, 0, 0);
   cursor: pointer;
 }

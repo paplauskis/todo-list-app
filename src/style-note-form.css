@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Kanit&family=Nunito:wght@300&family=Roboto+Mono:wght@100&family=Rubik+Pixels&family=Slackside+One&family=Tsukimi+Rounded:wght@300;500&display=swap');
 @keyframes createBox {
   from {
     transform: scale(0);
@@ -8,6 +9,7 @@
 }
 
 .note-div {
+  font-family: Verdana, Geneva, Tahoma, sans-serif, monospace;
   position: absolute;
   width: 100vw;
   height: 100vh;
