@@ -33,9 +33,7 @@ export function addTodo() {
   const newTodo = new Todo(title.value, todoDescription.value, dueDate.value, priority.value)
   if(title.value.length > 0) {
     allTodosArray.push(newTodo);
-    if(priority.value == 'low') lowPriorityTodosArray.push(newTodo);
-    else if (priority.value == 'medium') mediumPriorityTodosArray.push(newTodo);
-    else highPriorityTodosArray.push(newTodo);
+    sortPrioritiesToArrays(priority.value, newTodo);
     createTodoDiv(newTodo);
     todoForm.reset();
   }
@@ -44,14 +42,13 @@ export function addTodo() {
 function createTodoDiv(todo) {
   const todoArrayDiv = document.createElement('div');
   todoArrayDiv.classList.add('todo-array-div');
-  
   const priorityDiv = createPriorityDiv(todo.priority);
   const todoTitleDiv = createTodoTitleDiv(todo.title);
   const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate);
   const descriptionDiv = createDescriptionDiv(todo.description);
   const completeTodoButton = createCompleteTodoButton();
   const removeTodoButton = createRemoveTodoButton(todo, todoArrayDiv);
-  
+
   todoArrayDiv.appendChild(priorityDiv);
   todoArrayDiv.appendChild(todoTitleDiv);
   todoArrayDiv.appendChild(dateAndInfoDiv);
@@ -82,7 +79,8 @@ function createDateAndInfoDiv(dueDate) {
   
   const dateDiv = document.createElement('div');
   dateDiv.classList.add('date-div');
-  dateDiv.textContent = dueDate;
+  dateDiv.textContent = checkTodaysDate(dueDate);
+
   
   const infoButton = document.createElement('button');
   infoButton.classList.add('info-button');
@@ -134,5 +132,26 @@ function getPriorityColor(priority) {
     return 'rgb(255, 225, 0)';
   } else {
     return 'rgb(0, 155, 0)';
+  }
+}
+
+function sortPrioritiesToArrays(priority, newTodo) {
+  if(priority == 'low') return lowPriorityTodosArray.push(newTodo);
+  else if (priority == 'medium') return mediumPriorityTodosArray.push(newTodo);
+  else return highPriorityTodosArray.push(newTodo);
+}
+
+function checkTodaysDate(dueDate) {
+  let thisMonth = `${new Date().getMonth() + 1}`;
+  let thisDay = `${new Date().getDate()}`;
+  if(thisDay.length == 1) thisDay = `0${thisDay}`;
+  if(thisMonth.length == 1) thisMonth = `0${thisMonth}`;
+  const todaysDate = `${thisMonth}-${thisDay}`;
+  const modifiedDueDate = dueDate.replace('T', ' ').slice(5);
+  if (modifiedDueDate.slice(0, 5) == todaysDate) {
+    let today = `Today ${modifiedDueDate.slice(6)}`
+    return today;
+  } else {
+    return modifiedDueDate;
   }
 }
