@@ -33,13 +33,13 @@ export function addTodo() {
   const newTodo = new Todo(title.value, todoDescription.value, dueDate.value, priority.value)
   if(title.value.length > 0) {
     allTodosArray.push(newTodo);
-    sortPrioritiesToArrays(priority.value, newTodo);
     createTodoDiv(newTodo);
     todoForm.reset();
   }
 }
 
 function createTodoDiv(todo) {
+  sortPrioritiesToArrays(todo.priority, todo);
   const todoArrayDiv = document.createElement('div');
   todoArrayDiv.classList.add('todo-array-div');
   const priorityDiv = createPriorityDiv(todo.priority);
@@ -111,7 +111,7 @@ function createCompleteTodoButton(todo, todoArrayDiv) {
   completeTodoButton.classList.add('complete-todo-button');
   completeTodoButton.textContent = '✓';
   completeTodoButton.addEventListener('click', () => {
-    todoArrayDiv.remove();
+    completedTodosSection.appendChild(todoArrayDiv);
     completeTodoButton.style.backgroundColor = 'green';
     removeTodoFromArray(todo);
     completedTodosArray.push(todo);
@@ -146,7 +146,9 @@ function getPriorityColor(priority) {
 }
 
 function sortPrioritiesToArrays(priority, newTodo) {
-  if(priority == 'low') return lowPriorityTodosArray.push(newTodo);
+  if(priority == 'low') {
+    lowPriorityTodosArray.push(newTodo)
+  }
   else if (priority == 'medium') return mediumPriorityTodosArray.push(newTodo);
   else return highPriorityTodosArray.push(newTodo);
 }
@@ -156,18 +158,18 @@ function getCurrentDate() {
   let thisDay = `${new Date().getDate()}`;
   if(thisDay.length == 1) thisDay = `0${thisDay}`;
   if(thisMonth.length == 1) thisMonth = `0${thisMonth}`;
-  const todaysDate = `${thisMonth}-${thisDay}`;
+  let todaysDate = `${thisMonth}-${thisDay}`;
   return [thisDay, thisMonth, todaysDate];
 }
 
 function checkCurrentDate(dueDate, todo) {
-  const modifiedDueDate = dueDate.replace('T', ' ').slice(5);
+  let modifiedDueDate = dueDate.replace('T', ' ').slice(5);
   if (modifiedDueDate.slice(0, 5) == getCurrentDate()[2]) {
     todayTodosArray.push(todo);
-    let today = `Today ${modifiedDueDate.slice(6)}`;
+    const today = `Today ${modifiedDueDate.slice(6)}`;
     return today;
   } else if (modifiedDueDate.slice(0, 5) == `${getCurrentDate()[1]}-${parseInt(getCurrentDate()[0]) + 1}`) {
-    let tommorow = `Tommorow ${modifiedDueDate.slice(6)}`;
+    const tommorow = `Tommorow ${modifiedDueDate.slice(6)}`;
     return tommorow;
   } else return modifiedDueDate;
 }
