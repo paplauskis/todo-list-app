@@ -47,36 +47,49 @@ export function sectionLoader(todoArrayDiv) {
   tommorowTodosSectionButton.addEventListener('click', () => loadTommorowTodosSection(todoArrayDiv))
 }
 
+function hideNotesAndCompletedTodos() {
+  allTodosSection.style.display = 'flex';
+  completedTodosSection.style.display = 'none';
+  notesSection.style.display = 'none';
+}
+
 export function loadAllTodosSection(todoArrayDiv) {
-  todoArrayDiv.style.display = 'flex'
+  todoArrayDiv.style.display = 'flex';
+  completedTodosSection.style.display = 'none';
+  notesSection.style.display = 'none';
 }
 
 export function loadLowPrioritySection(todoArrayDiv) {
   if (todoArrayDiv.classList[2] == 'low') {
     todoArrayDiv.style.display = 'flex'
   } else todoArrayDiv.style.display = 'none'
+  hideNotesAndCompletedTodos()
 }
 
 export function loadMediumPrioritySection(todoArrayDiv) {
   if (todoArrayDiv.classList[2] == 'medium') {
     todoArrayDiv.style.display = 'flex'
   } else todoArrayDiv.style.display = 'none'
+  hideNotesAndCompletedTodos()
 }
 
 export function loadHighPrioritySection(todoArrayDiv) {
   if (todoArrayDiv.classList[2] == 'high') {
     todoArrayDiv.style.display = 'flex'
   } else todoArrayDiv.style.display = 'none'
+  hideNotesAndCompletedTodos()
 }
 
 export function loadTodayTodosSection(todoArrayDiv) {
   if (todoArrayDiv.classList[1] == 'today') {
     todoArrayDiv.style.display = 'flex'
   } else todoArrayDiv.style.display = 'none'
+  hideNotesAndCompletedTodos()
 }
 
 export function loadTommorowTodosSection(todoArrayDiv) {
   if (todoArrayDiv.classList[1] == 'tommorow') {
     todoArrayDiv.style.display = 'flex'
   } else todoArrayDiv.style.display = 'none'
+  hideNotesAndCompletedTodos()
 }
