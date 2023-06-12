@@ -1,12 +1,8 @@
 import { allTodosSection, completedTodosSection } from "./control-sections";
 import { sectionLoader, title, todoDescription, dueDate, priority, todoForm } from "./control-sections";
-
-  // const title = document.querySelector('#title');
-  // const todoDescription = document.querySelector('#description');
-  // const dueDate = document.querySelector('#due-date');
-  // const priority = document.querySelector('#select-priority');
-  // const todoForm = document.querySelector('#todo-form')
   
+
+
   class Todo {
     constructor(title, description, dueDate, priority) {
       this.title = title;
@@ -23,6 +19,20 @@ import { sectionLoader, title, todoDescription, dueDate, priority, todoForm } fr
       todoForm.reset();
     }
   }
+  
+  const todo1 = new Todo('11111', '', '2023-06-12', 'low')
+  const todo2 = new Todo('22222', '', '2023-06-13', 'medium')
+  const todo3 = new Todo('33333', '', '2023-06-14', 'high')
+  const todo4 = new Todo('44444', '', '2023-06-15', 'low')
+  const todo5 = new Todo('55555', '', '2023-06-12', 'medium')
+  const todo6 = new Todo('66666', '', '2023-06-13', 'high')
+  createTodoDiv(todo1)
+  createTodoDiv(todo2)
+  createTodoDiv(todo3)
+  createTodoDiv(todo4)
+  createTodoDiv(todo5)
+  createTodoDiv(todo6)
+  addTodo()
   
   function createTodoDiv(todo) {
     const todoDiv = document.createElement('div');
@@ -101,6 +111,7 @@ import { sectionLoader, title, todoDescription, dueDate, priority, todoForm } fr
     completeTodoButton.textContent = '✓';
     completeTodoButton.addEventListener('click', () => {
       completedTodosSection.appendChild(todoDiv);
+      todoDiv.classList.add('completed');
       completeTodoButton.style.backgroundColor = 'green';
     })
     return completeTodoButton;
