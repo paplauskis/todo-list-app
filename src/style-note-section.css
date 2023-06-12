@@ -1,4 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Kanit&family=Nunito:wght@300&family=Roboto+Mono:wght@100&family=Rubik+Pixels&family=Slackside+One&family=Tsukimi+Rounded:wght@300;500&display=swap');
+
+@keyframes createBox {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 .notes-section {
   display: grid;
   grid-template-columns: repeat(4, minmax( 100px, 1fr));
@@ -8,6 +18,8 @@
   padding: 40px;
   width: 85.5vw;
   height: 90.8vh;
+  overflow: auto;
+  animation: createBox 0.2s;
 }
 
 .note-array-div {

@@ -49,7 +49,7 @@ html {
   border-bottom: 2px solid var(--main-color);
   align-items: flex-start;
   max-width: 275px;
-  max-height: 310px;
+  max-height: 340px;
 }
 
 .sidebar-link {
