@@ -1,13 +1,11 @@
 import { allTodosSection, completedTodosSection } from "./control-sections";
-import { sectionLoader } from "./control-sections";
+import { sectionLoader, title, todoDescription, dueDate, priority, todoForm } from "./control-sections";
 
-  
-
-  const title = document.querySelector('#title');
-  const todoDescription = document.querySelector('#description');
-  const dueDate = document.querySelector('#due-date');
-  const priority = document.querySelector('#select-priority');
-  const todoForm = document.querySelector('#todo-form')
+  // const title = document.querySelector('#title');
+  // const todoDescription = document.querySelector('#description');
+  // const dueDate = document.querySelector('#due-date');
+  // const priority = document.querySelector('#select-priority');
+  // const todoForm = document.querySelector('#todo-form')
   
   class Todo {
     constructor(title, description, dueDate, priority) {
@@ -18,40 +16,32 @@ import { sectionLoader } from "./control-sections";
     }
   }
   
-  let allTodosArray = [];
-  let todayTodosArray = [];
-  let completedTodosArray = [];
-  let highPriorityTodosArray = [];
-  let mediumPriorityTodosArray = [];
-  let lowPriorityTodosArray = [];
-  
   export function addTodo() {
     const newTodo = new Todo(title.value, todoDescription.value, dueDate.value, priority.value)
     if(title.value.length > 0) {
-      allTodosArray.push(newTodo);
       createTodoDiv(newTodo);
       todoForm.reset();
     }
   }
   
   function createTodoDiv(todo) {
-    const todoArrayDiv = document.createElement('div');
-    todoArrayDiv.classList.add('todo-array-div');
+    const todoDiv = document.createElement('div');
+    todoDiv.classList.add('todo-array-div');
     const priorityDiv = createPriorityDiv(todo.priority);
     const todoTitleDiv = createTodoTitleDiv(todo.title);
-    const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate, todo, todo.description, todoArrayDiv, priorityDiv);
-    const completeTodoButton = createCompleteTodoButton(todo, todoArrayDiv);
-    const removeTodoButton = createRemoveTodoButton(todo, todoArrayDiv);
+    const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate, todo.description, todoDiv, priorityDiv);
+    const completeTodoButton = createCompleteTodoButton(todoDiv);
+    const removeTodoButton = createRemoveTodoButton(todoDiv);
   
-    todoArrayDiv.appendChild(priorityDiv);
-    todoArrayDiv.appendChild(todoTitleDiv);
-    todoArrayDiv.appendChild(dateAndInfoDiv);
+    todoDiv.appendChild(priorityDiv);
+    todoDiv.appendChild(todoTitleDiv);
+    todoDiv.appendChild(dateAndInfoDiv);
     dateAndInfoDiv.appendChild(completeTodoButton);
     dateAndInfoDiv.appendChild(removeTodoButton);
     
-    allTodosSection.appendChild(todoArrayDiv);
-    sortPrioritiesToArrays(todo.priority, todo, todoArrayDiv);
-    sectionLoader(todoArrayDiv);
+    allTodosSection.appendChild(todoDiv);
+    sortSectionByPriority(todo.priority, todoDiv);
+    sectionLoader(todoDiv);
   }
   
   function createPriorityDiv(priority) {
@@ -68,7 +58,7 @@ import { sectionLoader } from "./control-sections";
     return todoTitleDiv;
   }
   
-  function createDateAndInfoDiv(dueDate, todo, description, todoArrayDiv, priorityDiv) {
+  function createDateAndInfoDiv(dueDate, description, todoDiv, priorityDiv) {
     const dateAndInfoDiv = document.createElement('div');
     dateAndInfoDiv.classList.add('date-info-div');
   
@@ -79,85 +69,61 @@ import { sectionLoader } from "./control-sections";
     
     const dateDiv = document.createElement('div');
     dateDiv.classList.add('date-div');
-    dateDiv.textContent = checkCurrentDate(dueDate, todo, todoArrayDiv);
+    dateDiv.textContent = checkCurrentDate(dueDate, todoDiv);
   
     const infoButton = document.createElement('button');
     infoButton.classList.add('info-button');
     infoButton.textContent = '•••';
-    infoButton.addEventListener('click', () => descriptionPopDown(descriptionDiv, todoArrayDiv, priorityDiv))
+    infoButton.addEventListener('click', () => descriptionPopDown(descriptionDiv, todoDiv, priorityDiv))
     
     dateAndInfoDiv.appendChild(dateDiv);
     dateAndInfoDiv.appendChild(infoButton);
-    todoArrayDiv.appendChild(descriptionDiv);
-    console.log(todoArrayDiv.classList);
+    todoDiv.appendChild(descriptionDiv);
     
     return dateAndInfoDiv;
   }
 
-  function descriptionPopDown(descriptionDiv, todoArrayDiv, priorityDiv) {
+  function descriptionPopDown(descriptionDiv, todoDiv, priorityDiv) {
     if (descriptionDiv.style.display === 'none') {
       descriptionDiv.style.display = 'block';
-      todoArrayDiv.style.height = '130px';
+      todoDiv.style.height = '130px';
       priorityDiv.style.height = '120px';
     } else {
       descriptionDiv.style.display = 'none';
-      todoArrayDiv.style.height = '40px';
+      todoDiv.style.height = '40px';
       priorityDiv.style.height = '40px';
     }
   }
   
-  function createCompleteTodoButton(todo, todoArrayDiv) {
+  function createCompleteTodoButton(todoDiv) {
     const completeTodoButton = document.createElement('button');
     completeTodoButton.classList.add('complete-todo-button');
     completeTodoButton.textContent = '✓';
     completeTodoButton.addEventListener('click', () => {
-      completedTodosSection.appendChild(todoArrayDiv);
+      completedTodosSection.appendChild(todoDiv);
       completeTodoButton.style.backgroundColor = 'green';
-      removeTodoFromArray(todo);
-      completedTodosArray.push(todo);
     })
     return completeTodoButton;
   }
   
-  function createRemoveTodoButton(todo, todoArrayDiv) {
+  function createRemoveTodoButton(todoDiv) {
     const removeTodoButton = document.createElement('button');
     removeTodoButton.classList.add('remove-todo-button');
     removeTodoButton.textContent = '✕';
-    removeTodoButton.addEventListener('click', () => {
-      todoArrayDiv.remove();
-      removeTodoFromArray(todo);
-    });
+    removeTodoButton.addEventListener('click', () => todoDiv.remove());
     return removeTodoButton;
   }
   
-  function removeTodoFromArray(todo) {
-    const index = allTodosArray.indexOf(todo)
-    if (index != -1) allTodosArray.splice(index, 1);
-  }
-  
   function getPriorityColor(priority) {
-    if (priority === 'high') {
-      return 'rgb(220, 0, 0)';
-    } else if (priority === 'medium') {
-      return 'rgb(255, 225, 0)';
-    } else {
-      return 'rgb(0, 155, 0)';
-    }
+    if (priority === 'high') return 'rgb(220, 0, 0)'; 
+    else if (priority === 'medium') return 'rgb(255, 225, 0)'; 
+    else return 'rgb(0, 155, 0)';
   }
   
-  function sortPrioritiesToArrays(priority, newTodo, todoArrayDiv) {
-    if(priority == 'low') {
-      lowPriorityTodosArray.push(newTodo)
-      todoArrayDiv.classList.add('low')
-    }
-    else if (priority == 'medium') {
-    mediumPriorityTodosArray.push(newTodo);
-    todoArrayDiv.classList.add('medium')
-    }
-    else {
-      highPriorityTodosArray.push(newTodo);
-      todoArrayDiv.classList.add('high')
-    }
+  function sortSectionByPriority(priority, todoDiv) {
+    if (priority == 'low') todoDiv.classList.add('low')
+    else if (priority == 'medium') todoDiv.classList.add('medium')
+    else todoDiv.classList.add('high')
   }
   
   function getCurrentDate() {
@@ -169,19 +135,18 @@ import { sectionLoader } from "./control-sections";
     return [thisDay, thisMonth, todaysDate];
   }
   
-  function checkCurrentDate(dueDate, todo, todoArrayDiv) {
+  function checkCurrentDate(dueDate, todoDiv) {
     let modifiedDueDate = dueDate.replace('T', ' ').slice(5);
     if (modifiedDueDate.slice(0, 5) == getCurrentDate()[2]) {
-      todayTodosArray.push(todo);
+      todoDiv.classList.add('today');
       const today = `Today ${modifiedDueDate.slice(6)}`;
-      todoArrayDiv.classList.add('today');
       return today;
     } else if (modifiedDueDate.slice(0, 5) == `${getCurrentDate()[1]}-${parseInt(getCurrentDate()[0]) + 1}`) {
+      todoDiv.classList.add('tommorow');
       const tommorow = `Tommorow ${modifiedDueDate.slice(6)}`;
-      todoArrayDiv.classList.add('tommorow');
       return tommorow;
     } else {
-      todoArrayDiv.classList.add('future');
+      todoDiv.classList.add('future');
       return modifiedDueDate;
     }
   }
