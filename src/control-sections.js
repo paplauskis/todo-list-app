@@ -9,6 +9,8 @@ const tommorowTodosSectionButton = document.querySelector('.tommorow-todos-secti
 const lowPriorityTodosSectionButton = document.querySelector('.low-priority-section-button');
 const mediumPriorityTodosSectionButton = document.querySelector('.medium-priority-section-button');
 const highPriorityTodosSectionButton = document.querySelector('.high-priority-section-button');
+const notesSectionButton = document.querySelector('.notes-section-button')
+const completedTodosSectionButton = document.querySelector('.completed-todos-section-button');
 
 export const title = document.querySelector('#title');
 export const todoDescription = document.querySelector('#description');
@@ -21,22 +23,21 @@ export function controlSections() {
   completedTodosSection.style.display = 'none';
   notesSection.style.display = 'none';
 
-  const notesSectionButton = document.querySelector('.notes-section-button')
   notesSectionButton.addEventListener('click', () => {
       notesSection.style.display = 'grid';
       allTodosSection.style.display = 'none';
       completedTodosSection.style.display = 'none';
   });
 
-  
   allTodosSectionButton.addEventListener('click', () => {
       allTodosSection.style.display = 'flex';
       completedTodosSection.style.display = 'none';
       notesSection.style.display = 'none';
     });
     
-    const completedTodosSectionButton = document.querySelector('.completed-todos-section-button');
-    completedTodosSectionButton.addEventListener('click', () => {
+  completedTodosSectionButton.addEventListener('click', () => {
+    const completedTodos = document.querySelectorAll('.completed')
+    completedTodos.forEach((todo) => todo.style.display = 'flex');
     allTodosSection.style.display = 'none';
     completedTodosSection.style.display = 'flex';
     notesSection.style.display = 'none';
