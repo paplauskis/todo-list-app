@@ -1,3 +1,4 @@
+// import { addTodoToLocalStorage, displayTodosFromLocalStorage } from './local-storage';
 import {
   allTodosSection,
   completedTodosSection,
@@ -9,6 +10,8 @@ import {
   todoForm
 } from './control-sections';
 
+// window.onload = () => displayTodosFromLocalStorage();
+
 class Todo {
   constructor(title, description, dueDate, priority) {
     this.title = title;
@@ -19,43 +22,20 @@ class Todo {
 }
 
 export function addTodo() {
-  const newTodo = new Todo(
-    title.value,
-    todoDescription.value,
-    dueDate.value,
-    priority.value
-  );
+  const newTodo = new Todo(title.value, todoDescription.value, dueDate.value, priority.value);
   if (title.value.length > 0) {
+    // addTodoToLocalStorage(newTodo);
     createTodoDiv(newTodo);
     todoForm.reset();
   }
 }
 
-const todo1 = new Todo('11111', '', '2023-06-12', 'low');
-const todo2 = new Todo('22222', '', '2023-06-13', 'medium');
-const todo3 = new Todo('33333', '', '2023-06-14', 'high');
-const todo4 = new Todo('44444', '', '2023-06-15', 'low');
-const todo5 = new Todo('55555', '', '2023-06-12', 'medium');
-const todo6 = new Todo('66666', '', '2023-06-13', 'high');
-createTodoDiv(todo1);
-createTodoDiv(todo2);
-createTodoDiv(todo3);
-createTodoDiv(todo4);
-createTodoDiv(todo5);
-createTodoDiv(todo6);
-addTodo();
-
-function createTodoDiv(todo) {
+export function createTodoDiv(todo) {
   const todoDiv = document.createElement('div');
   todoDiv.classList.add('todo-array-div');
   const priorityDiv = createPriorityDiv(todo.priority);
   const todoTitleDiv = createTodoTitleDiv(todo.title);
-  const dateAndInfoDiv = createDateAndInfoDiv(
-    todo.dueDate,
-    todo.description,
-    todoDiv,
-    priorityDiv
-  );
+  const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate, todo.description, todoDiv, priorityDiv);
   const completeTodoButton = createCompleteTodoButton(todoDiv);
   const removeTodoButton = createRemoveTodoButton(todoDiv);
 
