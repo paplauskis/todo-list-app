@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Kanit&family=Nunito:wght@300&family=Roboto+Mono:wght@100&family=Rubik+Pixels&family=Slackside+One&family=Tsukimi+Rounded:wght@300;500&display=swap');
 
-@keyframes createBox {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -26,7 +17,6 @@
   height: 90.8vh;
   gap: 10px;
   overflow: auto;
-  animation: createBox 0.2s;
 }
 
 .todo-array-div {
