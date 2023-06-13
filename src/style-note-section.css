@@ -25,19 +25,20 @@
 
 .note-array-div {
   font-family: Verdana, Geneva, Tahoma, sans-serif, monospace;
-  background-color: rgb(176, 176, 176);
+  background-color: #CBD0D8;
   padding: 30px 30px 20px 20px;
   position: relative;
   border-radius: 15px;
   font-size: 1rem;
-  overflow: auto
+  overflow: auto;
+  box-shadow: 0px 5px 10px 0px rgb(176, 176, 176);
 }
 
 .remove-note-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  border: 2px solid rgb(168, 0, 206);
+  border: 2px solid #D3AC2B;
   background-color: transparent;
   border-radius: 50%;
   width: 25px;

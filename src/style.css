@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Nunito:wght@300&family=Roboto+Mono:wght@100&family=Rubik+Pixels&family=Tsukimi+Rounded:wght@300;500&display=swap');
 
 :root {
-  --main-color: rgb(168, 0, 206);
+  --main-color: #D3AC2B;
 }
 
 html {
-  background-color: rgb(229, 229, 229);
+  background-color: #F4F3EA;
+  color: #333D51;
 }
 
 * {
@@ -58,6 +59,7 @@ html {
   font-size: 1.2rem;
   transition: 0.3s;
   padding: 5px 10px;
+  color: #333D51;
 }
 
 .sidebar-link:hover {
