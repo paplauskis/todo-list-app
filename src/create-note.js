@@ -2,6 +2,7 @@ import { notesSection } from "./control-sections";
 
 const noteDescription = document.querySelector('#note');
 const noteForm = document.querySelector('#note-form');
+const loadNoteForm = document.querySelector('.note-div');
 
 class Note {
   constructor(description) {
@@ -13,6 +14,7 @@ export function addNote() {
   const newNote = new Note(noteDescription.value.trim());
   if (noteDescription.value.trim().length > 0) {
     displayNote(newNote);
+    loadNoteForm.style.display === 'none' ? loadNoteForm.style.display = 'block' : loadNoteForm.style.display = 'none';
     noteForm.reset();
   } 
 }

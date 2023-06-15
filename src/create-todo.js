@@ -10,7 +10,7 @@ import {
   todoForm
 } from './control-sections';
 
-// window.onload = () => displayTodosFromLocalStorage();
+const loadTodoForm = document.querySelector('.todo-div');
 
 class Todo {
   constructor(title, description, dueDate, priority) {
@@ -24,8 +24,8 @@ class Todo {
 export function addTodo() {
   const newTodo = new Todo(title.value, todoDescription.value, dueDate.value, priority.value);
   if (title.value.length > 0) {
-    // addTodoToLocalStorage(newTodo);
     createTodoDiv(newTodo);
+    loadTodoForm.style.display === 'none' ? loadTodoForm.style.display = 'block' : loadTodoForm.style.display = 'none';
     todoForm.reset();
   }
 }
