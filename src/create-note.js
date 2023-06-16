@@ -1,4 +1,4 @@
-import { notesSection } from "./control-sections";
+import { notesSection } from './control-sections';
 
 const noteDescription = document.querySelector('#note');
 const noteForm = document.querySelector('#note-form');
@@ -14,9 +14,11 @@ export function addNote() {
   const newNote = new Note(noteDescription.value.trim());
   if (noteDescription.value.trim().length > 0) {
     displayNote(newNote);
-    loadNoteForm.style.display === 'none' ? loadNoteForm.style.display = 'block' : loadNoteForm.style.display = 'none';
+    loadNoteForm.style.display === 'none'
+      ? (loadNoteForm.style.display = 'block')
+      : (loadNoteForm.style.display = 'none');
     noteForm.reset();
-  } 
+  }
 }
 
 function displayNote(note) {

@@ -13,10 +13,14 @@ export function controlForms() {
   openNoteFormButton.addEventListener('click', toggleNoteForm);
 
   function toggleNoteForm() {
-    loadNoteForm.style.display === 'none' ? loadNoteForm.style.display = 'block' : loadNoteForm.style.display = 'none';
+    loadNoteForm.style.display === 'none'
+      ? (loadNoteForm.style.display = 'block')
+      : (loadNoteForm.style.display = 'none');
   }
 
   function toggleTodoForm() {
-    loadTodoForm.style.display === 'none' ? loadTodoForm.style.display = 'block' : loadTodoForm.style.display = 'none';
+    loadTodoForm.style.display === 'none'
+      ? (loadTodoForm.style.display = 'block')
+      : (loadTodoForm.style.display = 'none');
   }
-};
+}

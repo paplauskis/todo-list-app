@@ -7,7 +7,7 @@ import {
   todoDescription,
   dueDate,
   priority,
-  todoForm
+  todoForm,
 } from './control-sections';
 
 const loadTodoForm = document.querySelector('.todo-div');
@@ -22,10 +22,17 @@ class Todo {
 }
 
 export function addTodo() {
-  const newTodo = new Todo(title.value, todoDescription.value, dueDate.value, priority.value);
+  const newTodo = new Todo(
+    title.value,
+    todoDescription.value,
+    dueDate.value,
+    priority.value
+  );
   if (title.value.length > 0) {
     createTodoDiv(newTodo);
-    loadTodoForm.style.display === 'none' ? loadTodoForm.style.display = 'block' : loadTodoForm.style.display = 'none';
+    loadTodoForm.style.display === 'none'
+      ? (loadTodoForm.style.display = 'block')
+      : (loadTodoForm.style.display = 'none');
     todoForm.reset();
   }
 }
@@ -35,7 +42,12 @@ export function createTodoDiv(todo) {
   todoDiv.classList.add('todo-array-div');
   const priorityDiv = createPriorityDiv(todo.priority);
   const todoTitleDiv = createTodoTitleDiv(todo.title);
-  const dateAndInfoDiv = createDateAndInfoDiv(todo.dueDate, todo.description, todoDiv, priorityDiv);
+  const dateAndInfoDiv = createDateAndInfoDiv(
+    todo.dueDate,
+    todo.description,
+    todoDiv,
+    priorityDiv
+  );
   const completeTodoButton = createCompleteTodoButton(todoDiv);
   const removeTodoButton = createRemoveTodoButton(todoDiv);
 
@@ -150,7 +162,10 @@ function checkCurrentDate(dueDate, todoDiv) {
     todoDiv.classList.add('today');
     const today = `Today ${modifiedDueDate.slice(6)}`;
     return today;
-  } else if (modifiedDueDate.slice(0, 5) ==`${getCurrentDate()[1]}-${parseInt(getCurrentDate()[0]) + 1}`) {
+  } else if (
+    modifiedDueDate.slice(0, 5) ==
+    `${getCurrentDate()[1]}-${parseInt(getCurrentDate()[0]) + 1}`
+  ) {
     todoDiv.classList.add('tommorow');
     const tommorow = `Tommorow ${modifiedDueDate.slice(6)}`;
     return tommorow;
